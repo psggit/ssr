@@ -1,7 +1,3 @@
-// import React from 'react';
-// import ReactDOMServer from 'react-dom/server';
-// import templateFn from './template';
-// import App from './../components/app/App';
 const express = require('express')
 const React = require('react')
 const path = require('path')
@@ -33,8 +29,7 @@ function handleRender(req, res)  {
     )
     const preloadedState = store.getState()
     console.log("preloaded state", preloadedState)
-    const template = renderFullPage(html);
-    //console.log("template", template, "html", html)
+    const template = renderFullPage(html, preloadedState);
     res.send(template);
 };
 
