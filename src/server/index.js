@@ -6,8 +6,8 @@ const express = require('express')
 const React = require('react')
 const path = require('path')
 const ReactDOMServer = require('react-dom/server')
-const templateFn = require('./template')
-const App = require('./../components/app/App')
+const templateFn = require('./template').default
+const App = require('./../components/app/App').default
 
 const app = express()
 const port = 3000
@@ -20,9 +20,9 @@ app.get("/", (req, res) =>
 
 function handleRender(req, res)  {
     const html = ReactDOMServer.renderToString(
-        App
+        App.default
     );
-    const template = templateFn.template(html);
+    const template = templateFn(html);
     res.send(template);
 };
 

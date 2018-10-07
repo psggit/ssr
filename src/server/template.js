@@ -1,4 +1,5 @@
-function template(html) { return `
+export default (html) => { 
+    `
     <!DOCTYPE html>
     <html>
     <head>
@@ -8,7 +9,7 @@ function template(html) { return `
     </head>
     <body>
         <div id="app">${html}</div>
-        <script src="/dist/client.js"></script>
+        // <script src="/dist/client.js"></script>
     </body>
     </html>
-`};
+`}
