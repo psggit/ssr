@@ -23,10 +23,6 @@ app.get("/", (req, res) =>
 );
 
 function handleRender(req, res)  {
-    //console.log("funv", templateFn, "app", <App/>)
-    // const html = ReactDOMServer.renderToString(
-    //    <App/>
-    // );
     console.log("store", createStore, "data", data, "reducer", reducer)
     const store = createStore(reducer, data)
 
