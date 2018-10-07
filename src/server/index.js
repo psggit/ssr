@@ -5,9 +5,13 @@
 const express = require('express')
 const React = require('react')
 const path = require('path')
+const createStore = require('redux').createStore
 const ReactDOMServer = require('react-dom/server')
+const { Provider } = require('react-redux')
 const templateFn = require('./template').default
 const App = require('./../components/app/App').default
+const data = require('./../../src/data.json')
+const reducer = require('./../reducer').default
 
 const app = express()
 const port = 3000
@@ -20,15 +24,25 @@ app.get("/", (req, res) =>
 
 function handleRender(req, res)  {
     //console.log("funv", templateFn, "app", <App/>)
+    // const html = ReactDOMServer.renderToString(
+    //    <App/>
+    // );
+    console.log("store", createStore, "data", data, "reducer", reducer)
+    const store = createStore(reducer, data)
+
     const html = ReactDOMServer.renderToString(
-       <App/>
-    );
+        <Provider store={store}>
+            <App />
+        </Provider>
+    )
+    const preloadedState = store.getState()
+    console.log("preloaded state", preloadedState)
     const template = renderFullPage(html);
     //console.log("template", template, "html", html)
     res.send(template);
 };
 
-function renderFullPage(html) {
+function renderFullPage(html, preloadedState) {
     return `
       <!doctype html>
       <html>
@@ -37,6 +51,11 @@ function renderFullPage(html) {
         </head>
         <body>
           <div id="root">${html}</div>
+          <script>
+          // WARNING: See the following for security issues around embedding JSON in HTML:
+          // http://redux.js.org/recipes/ServerRendering.html#security-considerations
+          window.__PRELOADED_STATE__ = ${JSON.stringify(preloadedState)}
+        </script>
         </body>
       </html>
       `
