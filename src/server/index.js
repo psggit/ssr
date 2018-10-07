@@ -19,11 +19,28 @@ app.get("/", (req, res) =>
 );
 
 function handleRender(req, res)  {
+    //console.log("funv", templateFn, "app", <App/>)
     const html = ReactDOMServer.renderToString(
-        App.default
+       <App/>
     );
-    const template = templateFn(html);
+    const template = renderFullPage(html);
+    //console.log("template", template, "html", html)
     res.send(template);
 };
+
+function renderFullPage(html) {
+    return `
+      <!doctype html>
+      <html>
+        <head>
+          <title>Redux Universal Example</title>
+        </head>
+        <body>
+          <div id="root">${html}</div>
+        </body>
+      </html>
+      `
+}
+
 
 app.listen(port)

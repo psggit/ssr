@@ -1,7 +1,6 @@
 export default (html) => { 
-    `
-    <!DOCTYPE html>
-    <html>
+    `<!DOCTYPE html>
+     <html>
     <head>
         <title>test app</title>
         <meta charset="utf-8">
@@ -9,7 +8,7 @@ export default (html) => {
     </head>
     <body>
         <div id="app">${html}</div>
-        // <script src="/dist/client.js"></script>
+        <script src="/dist/client.js"></script>
     </body>
     </html>
 `}

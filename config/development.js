@@ -8,6 +8,7 @@ module.exports = {
     },
     devServer: {
         contentBase: path.resolve(__dirname, '..', 'src/client'),
+        port: 8001,
         publicPath: '/dist/'
     },
     resolve: {
