@@ -1,4 +1,4 @@
-export default (html) => `
+function template(html) { return `
     <!DOCTYPE html>
     <html>
     <head>
@@ -11,4 +11,4 @@ export default (html) => `
         <script src="/dist/client.js"></script>
     </body>
     </html>
-`;
+`};

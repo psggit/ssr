@@ -6,7 +6,8 @@
   "scripts": {
     "build": "NODE_ENV=production webpack --config webpack.config.js",
     "start:dev": "NODE_ENV=developement index.js",
-    "ssr": "NODE_ENV=production nodemon ./src/server/index.js"
+    "ssr": "NODE_ENV=production nodemon ./src/server/index.js",
+    "start": "nodemon --exec babel-node --presets env,stage-2 src/server/index.js"
   },
   "repository": {
     "type": "git",
@@ -44,6 +45,7 @@
     "webpack-dev-server": "^3.1.9"
   },
   "dependencies": {
+    "babel-register": "^6.26.0",
     "express": "^4.16.3",
     "nodemon": "^1.18.4",
     "path": "^0.12.7",
