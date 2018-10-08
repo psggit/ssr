@@ -1,4 +1,13 @@
-export default (html) => { 
+function template (html="", initialState={})  { 
+    if(html){
+        scripts = ` <script>
+                       window.__STATE__ = ${JSON.stringify(initialState)}
+                    </script>
+                    <script src="assets/client.js"></script>
+                    `
+      } else {
+        scripts = ` <script src="assets/bundle.js"> </script> `
+      }
     `<!DOCTYPE html>
      <html>
     <head>
@@ -8,7 +17,9 @@ export default (html) => {
     </head>
     <body>
         <div id="app">${html}</div>
-        <script src="/dist/client.js"></script>
+        ${scripts}
     </body>
     </html>
 `}
+
+module.exports = template

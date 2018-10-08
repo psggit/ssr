@@ -1,37 +1,50 @@
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import * as Actions from './../../actions'
+import data from './../../data.json'
+
 //import './app.scss';
 class App extends Component {
-    constructor() {
-        super()
-        console.log("props", this.props)
-        // this.state = {
-            
-        // }
+   
+    componentWillMount() {
+        const { items } = this.props;
+        if (items === null) {
+            this.props.actions.itemsFetched(data)
+        }
+        //console.log("data", this.props)
     }
 
-    componentDidMount() {
-        console.log("hello")
+    renderItems() {
+        return this.props.items.items.map((data, i) => {
+            return (
+                <div key={i}>
+                    <div> {data.snippet.title} </div>
+                    <img src={data.snippet.thumbnails.default.url}/> 
+                </div>
+            )
+        })
     }
 
     render() {
-        console.log("state props", this.props.items)
         return (
-            <div className="app">
-                <h1 className="app-heading">Hello App</h1>
+            <div className="app" style={{display: 'flex'}}>
+               
+                {this.renderItems()}
+               
            </div>
         );
     }
 }
 
 function mapStateToProps(state) {
-    console.log("state", state)
     return {
         items : state
     }
 }
-// const mapDispatchToProps = (dispatch) =>
-//   bindActionCreators({ fetchUsers }, dispatch);
 
-export default connect(mapStateToProps)(App);
+const mapDispatchToProps = (dispatch) => ({
+    actions: bindActionCreators(Actions, dispatch)
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
