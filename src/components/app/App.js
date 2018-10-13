@@ -3,34 +3,39 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as Actions from './../../actions'
 import data from './../../data.json'
+import './App.css'
 
-//import './app.scss';
 class App extends Component {
-   
+
     componentWillMount() {
-        const { items } = this.props;
-        if (items === null) {
+        const { list } = Object.keys(this.props.data).length > 0 ? this.props.data : null
+        if (list === null) {
             this.props.actions.itemsFetched(data)
         }
-        //console.log("data", this.props)
     }
 
     renderItems() {
-        return this.props.items.items.map((data, i) => {
+        return this.props.data.list.items.map((data, i) => {
             return (
-                <div key={i}>
-                    <div> {data.snippet.title} </div>
-                    <img src={data.snippet.thumbnails.default.url}/> 
-                </div>
+                <React.Fragment>
+                    <div key={i}>
+                        <div> {data.snippet.title} </div>
+                        <img src={data.snippet.thumbnails.default.url}/> 
+                    </div><br />
+                </React.Fragment>
             )
         })
     }
 
     render() {
+        //console.log("this.props", this.props)
         return (
-            <div className="app" style={{display: 'flex'}}>
+            <div className="app" style={{display: 'flex', flexDirection: 'column'}}>
                
-                {this.renderItems()}
+                {
+                    !this.props.data.isFetching &&
+                    this.renderItems()
+                }
                
            </div>
         );
@@ -39,7 +44,7 @@ class App extends Component {
 
 function mapStateToProps(state) {
     return {
-        items : state
+        data : state
     }
 }
 

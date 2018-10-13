@@ -1,2 +1,4 @@
-//import { USERS_FETCHED } from './constants';
-export const itemsFetched = response => ({ type: "USERS_FETCHED", response });
+
+export function itemsFetched (response) {
+  return ({ type: "USERS_FETCHED", response });
+} 

@@ -1,2 +1,2 @@
-const developmentConfig = require('./config/development.js');
+const developmentConfig = require('./config/webpack.ssr');
 module.exports = developmentConfig;
